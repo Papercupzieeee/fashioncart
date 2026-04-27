@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - F@shionc@rt</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="cart-wishlist-redesign.css">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body id="wishlist-page">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo" onclick="window.location.href='fashion.html'" style="cursor: pointer;">F@shionc@rt</div>
+
+            <div class="navbar-center">
+                <a href="fashion.html" class="nav-link">HOME</a>
+                <a href="products.html?category=Men" class="nav-link">MEN</a>
+                <a href="products.html?category=Women" class="nav-link">WOMEN</a>
+                <a href="products.html?category=Kids" class="nav-link">KIDS</a>
+                <a href="products.html?category=Beauty" class="nav-link">BEAUTY</a>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search products, brands, and more...">
+                <span class="search-icon"><i class="bx bx-search"></i></span>
+            </div>
+
+            <div class="navbar-right">
+                <label class="theme-toggle-3d" title="Toggle Theme">
+                  <input type="checkbox" id="themeToggle">
+                  <span class="toggle-track">
+                    <span class="toggle-thumb">
+                      <i class='bx bx-sun icon sun'></i>
+                      <i class='bx bx-moon icon moon'></i>
+                    </span>
+                  </span>
+                </label>
+                <div class="nav-icon" data-action="profile" title="Profile">
+                    <i class='bx bxs-user-circle'></i>
+                </div>
+                <div class="nav-icon" data-action="wishlist" title="Wishlist">
+                    <i class='bx bxs-heart'></i>
+                    <div id="wishlist-count" class="cart-count" style="display: none;">0</div>
+                </div>
+                <div class="nav-icon" data-action="cart" title="Cart">
+                    <i class='bx bxs-shopping-bag'></i>
+                    <div id="cart-count" class="cart-count" style="display: none;">0</div>
+                </div>
+                <div class="nav-icon" data-action="orders" title="Your Orders" onclick="window.location.href='orders.html'">
+                    <i class='bx bxs-package'></i>
+                </div>
+                <div class="nav-icon" data-action="logout" title="Logout" onclick="if(confirm('Are you sure you want to logout?')) { localStorage.clear(); window.location.href='index.html'; showToast('Logged out successfully', 'success'); }">
+                    <i class='bx bx-log-out'></i>
+                </div>
+            </div>
+
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="page-layout">
+        <div class="page-content">
+            <section class="section">
+                <div class="container">
+                    <div style="display: flex; align-items: center; gap: var(--spacing-md); margin-bottom: var(--spacing-lg);">
+                        <h1 class="section-title" style="margin-bottom: 0;">MY WISHLIST</h1>
+                        
+                    </div>
+
+                    <!-- WISHLIST ITEMS -->
+                    <div class="wishlist-items-container">
+                        <!-- Wishlist items loaded by JavaScript -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- RECOMMENDED SECTION -->
+            <section class="section" style="background-color: var(--bg-light);">
+                <div class="container">
+                    <h2 class="section-title">RECOMMENDED FOR YOU</h2>
+                    <div class="products-grid">
+                        <!-- Recommended products can be shown here -->
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- FOOTER -->
+        <footer>
+            <div class="footer-container">
+                <div class="footer-section">
+                    <h3>ABOUT F@shionc@rt</h3>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Press</a>
+                    <a href="#">Blog</a>
+                </div>
+                <div class="footer-section">
+                    <h3>CUSTOMER CARE</h3>
+                    <a href="#">Contact Us</a>
+                    <a href="#">FAQ</a>
+                    <a href="#">Shipping Info</a>
+                    <a href="#">Returns & Exchanges</a>
+                </div>
+                <div class="footer-section">
+                    <h3>POLICIES</h3>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Secure Shopping</a>
+                    <a href="#">Accessibility</a>
+                </div>
+                <div class="footer-section">
+                    <h3>FOLLOW US</h3>
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                    <a href="#">Twitter</a>
+                    <a href="#">YouTube</a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 F@shionc@rt. All rights reserved. | Designed with ❤️ for Fashion Lovers</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- AI Chat Assistant -->
+    <div id="chat-icon" title="AI Assistant">💬</div>
+    <div id="chat-window">
+        <div class="chat-header">
+            <span>AI Assistant</span>
+            <button id="chat-close" title="Close">&times;</button>
+        </div>
+        <div id="chat-messages"></div>
+        <div id="chat-options"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
