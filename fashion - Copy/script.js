@@ -2740,6 +2740,8 @@ async function placeOrder() {
   const cartItems = getCart();
   if (cartItems.length === 0) return showToast('Your cart is empty', 'warning');
   const userId = getCurrentUserId();
+  const orderDetails = await openOrderDetailsModal();
+  if (!orderDetails) return;
 
   const orderItems = cartItems.map(item => ({
     productId: item.id,
@@ -2751,20 +2753,77 @@ async function placeOrder() {
     const res = await fetch('http://localhost:5000/api/orders', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId, items: orderItems })
+      body: JSON.stringify({
+        userId,
+        items: orderItems,
+        address: orderDetails.address,
+        phone_number: orderDetails.phoneNumber
+      })
     });
 
     if (res.ok) {
       CART = [];
       updateCartCount();
       updateCheckoutSummary();
-      showToast('✅ Order placed successfully!', 'success');
+      showToast('Your order is placed', 'success');
       setTimeout(() => { window.location.href = 'orders.html'; }, 1500);
     } else {
       const errorData = await res.json().catch(() => ({}));
       showToast(errorData.message || 'Failed to place order', 'error');
     }
   } catch (e) { console.error('placeOrder error:', e); }
+}
+
+function openOrderDetailsModal() {
+  return new Promise((resolve) => {
+    const overlay = document.createElement('div');
+    overlay.className = 'modal-overlay';
+    overlay.innerHTML = `
+      <div class="modal" role="dialog" aria-modal="true" aria-labelledby="orderDetailsTitle">
+        <h3 id="orderDetailsTitle" style="margin-bottom: 12px;">Confirm Order Details</h3>
+        <div class="form-group" style="margin-bottom: 12px;">
+          <label class="form-label" for="orderAddressInput">Address</label>
+          <textarea id="orderAddressInput" class="form-control" rows="4" placeholder="Enter your delivery address"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom: 16px;">
+          <label class="form-label" for="orderPhoneInput">Phone Number</label>
+          <input id="orderPhoneInput" class="form-control" type="tel" placeholder="Enter your phone number">
+        </div>
+        <div style="display: flex; gap: 10px; justify-content: flex-end;">
+          <button type="button" class="btn btn-secondary" id="cancelOrderDetailsBtn">Cancel</button>
+          <button type="button" class="btn btn-primary" id="confirmOrderDetailsBtn">Confirm Order</button>
+        </div>
+      </div>
+    `;
+
+    const closeModal = (result) => {
+      overlay.remove();
+      resolve(result);
+    };
+
+    overlay.querySelector('#cancelOrderDetailsBtn')?.addEventListener('click', () => {
+      closeModal(null);
+    });
+
+    overlay.querySelector('#confirmOrderDetailsBtn')?.addEventListener('click', () => {
+      const address = overlay.querySelector('#orderAddressInput')?.value?.trim() || '';
+      const phoneNumber = overlay.querySelector('#orderPhoneInput')?.value?.trim() || '';
+
+      if (!address) {
+        showToast('Address is required', 'warning');
+        return;
+      }
+      if (!phoneNumber) {
+        showToast('Phone number is required', 'warning');
+        return;
+      }
+
+      closeModal({ address, phoneNumber });
+    });
+
+    document.body.appendChild(overlay);
+    overlay.querySelector('#orderAddressInput')?.focus();
+  });
 }
 
 async function loadOrdersPage() {
