@@ -1,0 +1,54 @@
+{
+  "name": "fashion-category-links",
+  "version": "1.0.0",
+  "description": "Fashioncart frontend and backend",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "server": "node app.js",
+    "dev": "nodemon app.js",
+    "seed:admin": "node .vscode/src/script/seedAdmin.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.3",
+    "leaflet": "^1.9.4",
+    "multer": "^2.1.1",
+    "mysql2": "^3.22.2",
+    "pg": "^8.13.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-leaflet": "^4.2.1",
+    "react-scripts": "5.0.1",
+    "sequelize": "^6.37.5",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

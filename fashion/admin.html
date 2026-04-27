@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F@shionc@rt Admin</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <main class="admin-shell">
+        <section class="admin-auth" id="adminAuthCard">
+            <div class="panel-heading">
+                <p class="eyebrow">F@shionc@rt Control Room</p>
+                <h1>Admin login</h1>
+                <p class="muted">Only admin accounts from the `admins` table can access the dashboard.</p>
+            </div>
+            <form id="adminLoginForm" class="stack">
+                <label>
+                    <span>Username</span>
+                    <input type="text" id="adminUsername" name="username" placeholder="Enter admin username" required>
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" id="adminPassword" name="password" placeholder="Enter password" required>
+                </label>
+                <button type="submit" class="btn btn-primary">Sign in</button>
+                <p class="feedback error" id="loginError"></p>
+                <p class="feedback success" id="loginSuccess"></p>
+            </form>
+        </section>
+
+        <section class="dashboard hidden" id="adminDashboard">
+            <header class="dashboard-header">
+                <div>
+                    <p class="eyebrow">Restricted Area</p>
+                    <h1>Product Administration</h1>
+                    <p class="muted" id="adminWelcome">Signed in as admin</p>
+                </div>
+                <div class="header-actions">
+                    <a class="btn btn-secondary" href="index.html">Storefront</a>
+                    <a class="btn btn-secondary" href="admin-deliveries.html">Delivery Dashboard</a>
+                    <button class="btn btn-danger" id="logoutButton" type="button">Log out</button>
+                </div>
+            </header>
+
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2 id="productFormTitle">Add product</h2>
+                        <p class="muted">Create or edit products, upload an image, and save directly to MySQL.</p>
+                    </div>
+                    <button class="btn btn-ghost hidden" id="cancelEditButton" type="button">Cancel edit</button>
+                </div>
+
+                <form id="productForm" class="product-form" enctype="multipart/form-data">
+                    <input type="hidden" id="productId" name="productId">
+                    <label>
+                        <span>Name</span>
+                        <input type="text" id="name" name="name" required>
+                    </label>
+                    <label>
+                        <span>Brand</span>
+                        <input type="text" id="brand" name="brand">
+                    </label>
+                    <label>
+                        <span>Price</span>
+                        <input type="number" id="originalPrice" name="originalPrice" min="0" step="0.01" required>
+                    </label>
+                    <label>
+                        <span>Category</span>
+                        <input type="text" id="category" name="category" required>
+                    </label>
+                    <label>
+                        <span>Stock</span>
+                        <input type="number" id="stock" name="stock" min="0" step="1" required>
+                    </label>
+                    <label>
+                        <span>Discount %</span>
+                        <input type="number" id="discount" name="discount" min="0" max="100" step="1" value="0">
+                    </label>
+                    <label class="full">
+                        <span>Description</span>
+                        <textarea id="description" name="description" rows="4"></textarea>
+                    </label>
+                    <label class="full">
+                        <span>Product image</span>
+                        <input type="file" id="image" name="image" accept="image/*">
+                    </label>
+                    <div class="full form-actions">
+                        <button type="submit" class="btn btn-primary" id="productSubmitButton">Add product</button>
+                    </div>
+                    <p class="feedback error full" id="productError"></p>
+                    <p class="feedback success full" id="productSuccess"></p>
+                </form>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Inventory</h2>
+                        <p class="muted">Inline stock and discount tools use the protected admin APIs.</p>
+                    </div>
+                    <button class="btn btn-secondary" id="refreshProductsButton" type="button">Refresh</button>
+                </div>
+
+                <div class="table-wrap">
+                    <table class="inventory-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Discount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inventoryTableBody">
+                            <tr>
+                                <td colspan="6" class="placeholder">Loading products...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="feedback error" id="inventoryError"></p>
+            </section>
+        </section>
+    </main>
+
+    <script src="admin.js"></script>
+</body>
+</html>
